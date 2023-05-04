@@ -77,7 +77,7 @@ ggplot(draws2, aes(percentile, rf_percentile)) +
 
 ``` r
 ggplot(draws2, aes(percentile, rf_percentile)) +
-  geom_point() +
+  geom_point(alpha = .2) +
   geom_line(aes(y = percentile)) +
   geom_vline(xintercept = .05) +
   geom_hline(yintercept = .05)
