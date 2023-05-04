@@ -126,7 +126,9 @@ norms2 <- ls_to_fs_norm %>%
 
 ggplot(norms2, aes(z, rf_z)) +
   geom_point() +
-  geom_line(aes(y = z))
+  geom_line(aes(y = z)) +
+  geom_vline(xintercept = -1.96) +
+  geom_vline(xintercept = 1.96)
 ```
 
     Warning: Removed 10 rows containing missing values (geom_point).
