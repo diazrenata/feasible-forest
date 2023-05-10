@@ -45,5 +45,7 @@ draws_list <- apply(as.matrix(r_rf_predicted_pars), MARGIN = 1, FUN = draw_from_
 
 draws_df = bind_rows(draws_list)
 
+write.csv(r_rf_predicted_pars, here::here("data", "r_rf_predicted_pars.csv"), row.names = F)
 
 write.csv(draws_df, here::here("data", "r_rf_predicted_draws.csv"), row.names = F)
+
