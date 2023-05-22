@@ -51,3 +51,5 @@ rsconnect/
 .DS_Store
 
 data/true_fs_draws.csv
+
+acccessory_data/true_fs_draws.csv

@@ -23,6 +23,7 @@ obs_to_norm_z <- function(obs, mean, sd) {
 #'
 #' @return p value of obs | N(mean, sd)
 #' @export
+#' @importFrom stats pnorm
 #'
 obs_to_norm_p <- function(obs, mean, sd) {
 

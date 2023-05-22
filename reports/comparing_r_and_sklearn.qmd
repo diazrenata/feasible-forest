@@ -60,5 +60,3 @@ ggplot(bound_predictions, aes(sd, sd)) +
   geom_point(aes(y = rf_sd.y), color = "green")
 
 ```
-
-
