@@ -2,6 +2,7 @@
 
 export(fit_forest)
 export(obs_to_draw)
+export(obs_to_forest_z)
 export(obs_to_norm_p)
 export(obs_to_norm_z)
 export(predict_forest)
