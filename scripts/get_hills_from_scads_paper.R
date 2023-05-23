@@ -3,7 +3,7 @@ library(dplyr)
 all_di <- read.csv("https://raw.githubusercontent.com/diazrenata/scadsanalysis/master/analysis/reports/submission2/all_di.csv")
 
 di_sel <- all_di %>%
-  select(dat, site, singletons, s0, n0, nparts, shannon)
+  select(dat, site, singletons, s0, n0, nparts, shannon, shannon_percentile)
 
 di_hill <- di_sel %>%
   mutate(hill1 = exp(shannon))

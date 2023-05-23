@@ -1,0 +1,113 @@
+---
+title: "all_di"
+format: gfm
+execute: 
+  cache: true
+---
+
+```{r setup}
+
+library(dplyr)
+library(ggplot2)
+library(feasibleforest)
+
+theme_set(theme_bw())
+
+```
+
+```{r dat}
+
+all_di <- read.csv(here::here("scripts", "filtered_di_hill.csv"))
+
+all_di_real <- all_di %>%
+  filter(!singletons)
+
+```
+
+```{r preds}
+
+all_di_real$z <- NA
+
+
+for(i in 1:nrow(all_di_real)) {
+  
+  all_di_real$z[i] <- obs_to_forest_z(all_di$hill1[i],
+                                      all_di$s0[i],
+                                      all_di$n0[i])
+  
+}
+
+```
+
+```{r}
+
+all_di_real <- all_di_real %>%
+  mutate(z_summary = case_when(
+    z > 1.96 ~ "high",
+    z < -1.96 ~ "low",
+    TRUE ~ "nonsig"
+  ))
+
+```
+
+
+```{r}
+
+ggplot(all_di_real, aes(x = z)) +
+  geom_histogram() +
+  geom_vline(xintercept = -1.96) +
+  geom_vline(xintercept = 1.96)
+
+```
+
+```{r}
+mean(all_di_real$z < -1.96)
+
+mean(all_di_real$z > 1.96)
+
+```
+
+__43% of the sites, overall, are LOW hill1 relative to the (predicted) feasible set 1.5% are HIGH.__
+
+```{r}
+
+ggplot(all_di_real, aes(x = z)) +
+  geom_histogram() +
+  geom_vline(xintercept = -1.96) +
+  geom_vline(xintercept = 1.96) +
+  facet_wrap(vars(dat), scales = "free")
+
+```
+
+```{r}
+
+ggplot(all_di_real, aes(s0, n0, color = z_summary)) +
+  geom_point(alpha = .1) +
+  geom_point(data = all_di_real %>% filter(z_summary != "nonsig"), alpha = .5) +
+  scale_x_log10() +
+  scale_y_log10()
+
+```
+
+```{r}
+
+all_di_real %>%
+  group_by(dat, z_summary) %>%
+  summarize(n = dplyr::n()) %>%
+  group_by(dat) %>%
+  mutate(totaln = sum(n)) %>%
+  mutate(prop = n / totaln)
+
+```
+
+
+```{r}
+
+ggplot(all_di_real, aes(shannon_percentile, z)) +
+  geom_point(alpha = .1) +
+  facet_wrap(vars(dat)) +
+  geom_vline(xintercept = 5) +
+  geom_hline(yintercept = -1.96)
+
+
+```
