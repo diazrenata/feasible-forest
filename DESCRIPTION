@@ -1,10 +1,10 @@
 Package: feasibleforest
-Title: What the Package Does (One Line, Title Case)
+Title: Random Forest Comparisons to the Feasible Set
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Renata", "Diaz", , "renata.diaz@weecology.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-0803-4734"))
+Description: Random Forest Comparisons to the Feasible Set
 License: AGPL (>= 3) + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

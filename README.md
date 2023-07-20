@@ -1,6 +1,78 @@
-# feasible-forest
-Making comparisons to the feasible set using a random forest.
+feasibleforest
+================
 
-This is an R package in development.
+This work is supported via NSF fellowship award DBI-2208901 to Renata
+Diaz.
 
-Work on this package is supported by NSF award DBI-2208901 to Renata Diaz.
+This is a) an R package in-development and b) a demonstration of a
+workflow using a random forest algorithm to accelerate making
+comparisons between the [feasible
+set](https://onlinelibrary.wiley.com/doi/10.1111/ele.12154) and
+empirically- or theoretically-generated species abundance distributions
+(e.g. the comparisons made
+[here](https://github.com/diazrenata/sad-divergence)). The
+[feasiblesads](https://github.com/diazrenata/feasiblesads) samples from
+the feasible set directly, but this becomes computationally intractable
+for large combinations of S and N or simply to perform repeatedly in
+short periods of time. This package uses a random forest model, trained
+on true samples drawn from feasible sets, to predict the statistical
+characteristics of the feasible set for a given S and N and compare an
+observed SAD to these predictions. It is intended to expedite
+comparisons between observed SADs and the feasible set, particularly for
+instances where one wishes to make many comparisons within the a
+consistent general range of combinations of S and N, but not to resample
+the feasible set for every possible combination of S and N within that
+state space. It may not be as appropriate for comparisons involving
+unusual combinations of S and N or combinations not part of the state
+space the model was originally trained on.
+
+## Intended use case
+
+This was developed in response to the need to rapidly compare the
+results of simulation models to the feasible set. While these models
+have relatively predictable *approximate* values for S and N, actual
+outcomes can vary. To do this at scale, we would need to re-sample the
+feasible set for every novel combination of S and N, which represents an
+enormous computational load and a significant barrier to executing these
+analyses.
+
+Feasible sets for similar combinations of S and N have similar
+statistical properties (i.e., the SADs in a feasible set for an S of 100
+and an N of 400 are similar to the SADs in a feasible set for S of 101
+and N of 395). Therefore, rather than resample for every SxN pairing,
+this package trains a random forest algorithm on the statistical
+properties of a relatively small subset of SxN pairings, and uses the
+trained model to predict the statistical properties of feasible sets
+with novel SxN pairings. The speciifc properties used here are the mean
+and standard deviation of Hill numbers (q=1) for SADs in the feasible
+set. These values can then be used to compare “observed” SADs to the
+feasible set by calculating a z-score of the “observed” SAD’s Hill
+number (q = 1) value compared to the Hill numbers predicted for the
+feasible set with the corresponding S and N.
+
+## Workflow
+
+1.  Generate samples from the feasible set for a “sparse” set of SxN
+    combinations distributed over a broad range. (This repo uses
+2.  For all samples, calculate the Hill numbers of the SADs. For each
+    SxN combination, calculate the mean and standard deviation Hill
+    number associated with that SxN.
+3.  Train random forest models to predict the mean hill number given S
+    and N, and to predict the standard deviation hill number given S and
+    N.
+4.  Use the trained models to generate predicted mean + sd hill numbers
+    from a new S and N.
+5.  Calculate the z-score of an “observed” Hill number compared to these
+    predictions.
+
+## Stress-testing
+
+## Instructions and suggestions for wider use
+
+This R package is undergoing active development and does not yet have a
+stable release. Using code or objects directly drawn from this repo is
+therefore not recommended (or, subject to use-at-your-own-risk!). It may
+be more reliable to re-implement the higher-level approach within your
+own codebase. If you would like to use this code or have questions about
+the workflow modeled here, RMD is more than happy to chat via GitHub
+issues.
