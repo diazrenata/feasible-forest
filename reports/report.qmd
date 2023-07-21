@@ -9,12 +9,12 @@ library(dplyr)
 library(ggplot2)
 theme_set(theme_bw())
 
-ls_to_fs_norm <- read.csv(here::here("data", "ls_to_fs_norm.csv"))
-ls_to_fs_draws <- read.csv(here::here("data", "ls_to_fs_draws.csv"))
+ls_to_fs_norm <- read.csv(here::here("accessory_data", "ls_to_fs_norm.csv"))
+ls_to_fs_draws <- read.csv(here::here("accessory_data", "ls_to_fs_draws.csv"))
 
 
-ls_to_rf_norm <- read.csv(here::here("data", "ls_to_rf_norm.csv"))
-ls_to_rf_draws <- read.csv(here::here("data", "ls_to_rf_draws.csv"))
+ls_to_rf_norm <- read.csv(here::here("accessory_data", "ls_to_rf_norm.csv"))
+ls_to_rf_draws <- read.csv(here::here("accessory_data", "ls_to_rf_draws.csv"))
 
 ```
 

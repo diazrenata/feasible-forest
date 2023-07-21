@@ -21,14 +21,14 @@ Feasible sets for similar combinations of S and N have similar statistical prope
 
 ## Workflow
 
-1. Generate samples from the feasible set for a "sparse" set of SxN combinations distributed over a broad range. (This repo uses 
-2. For all samples, calculate the Hill numbers of the SADs. For each SxN combination, calculate the mean and standard deviation Hill number associated with that SxN.
+1. Generate samples from the feasible set for a "sparse" set of SxN combinations distributed over a broad range. (This implementation uses 1476 combinations of S ranging from 3-200 and N ranging from 57-19979).
+2. For all samples, calculate the Hill numbers of the SADs. For each SxN combination, calculate the mean and standard deviation Hill number associated with that SxN. 
 3. Train random forest models to predict the mean hill number given S and N, and to predict the standard deviation hill number given S and N.
 4. Use the trained models to generate predicted mean + sd hill numbers from a new S and N.
 5. Calculate the z-score of an "observed" Hill number compared to these predictions.
 
 
-## Stress-testing
+## Validation
 
 ```{r}
 
