@@ -11,13 +11,13 @@ set](https://onlinelibrary.wiley.com/doi/10.1111/ele.12154) and
 empirically- or theoretically-generated species abundance distributions
 (e.g. the comparisons made
 [here](https://github.com/diazrenata/sad-divergence)). The
-[feasiblesads](https://github.com/diazrenata/feasiblesads) samples from
-the feasible set directly, but this becomes computationally intractable
-for large combinations of S and N or simply to perform repeatedly in
-short periods of time. This package uses a random forest model, trained
-on true samples drawn from feasible sets, to predict the statistical
-characteristics of the feasible set for a given S and N and compare an
-observed SAD to these predictions. It is intended to expedite
+[feasiblesads](https://github.com/diazrenata/feasiblesads) package
+samples from the feasible set directly, but this becomes computationally
+intractable for large combinations of S and N or simply to perform
+repeatedly in short periods of time. This package uses a random forest
+model, trained on true samples drawn from feasible sets, to predict the
+statistical characteristics of the feasible set for a given S and N and
+compare an observed SAD to these predictions. It is intended to expedite
 comparisons between observed SADs and the feasible set, particularly for
 instances where one wishes to make many comparisons within the a
 consistent general range of combinations of S and N, but not to resample
@@ -50,10 +50,12 @@ feasible set by calculating a z-score of the “observed” SAD’s Hill
 number (q = 1) value compared to the Hill numbers predicted for the
 feasible set with the corresponding S and N.
 
-## Workflow
+## Workflow overview
 
 1.  Generate samples from the feasible set for a “sparse” set of SxN
-    combinations distributed over a broad range. (This repo uses
+    combinations distributed over a broad range. (This implementation
+    uses 1476 combinations of S ranging from 3-200 and N ranging from
+    57-19979).
 2.  For all samples, calculate the Hill numbers of the SADs. For each
     SxN combination, calculate the mean and standard deviation Hill
     number associated with that SxN.
@@ -65,7 +67,23 @@ feasible set with the corresponding S and N.
 5.  Calculate the z-score of an “observed” Hill number compared to these
     predictions.
 
-## Stress-testing
+## Validation and demonstrations
+
+See [this
+report](https://github.com/diazrenata/feasible-forest/blob/main/reports/comparing_rf_to_true.md)
+for a comparison of the true mean and SD scores compared to those
+predicted by the random forest model, on a withheld test dataset.
+
+See [this
+report](https://github.com/diazrenata/feasible-forest/blob/main/reports/report.md)
+for a comparison of the percentile scores and z scores obtained
+comparing logseries SADs with different values of S and N to a) the true
+feasible set and b) the random-forest predictions using this workflow.
+
+See [this
+report](https://github.com/diazrenata/feasible-forest/blob/main/reports/all_di_comparison.md)
+for an application of this workflow to the data used
+[here](https://github.com/diazrenata/scadsanalysis).
 
 ## Instructions and suggestions for wider use
 
@@ -76,3 +94,16 @@ be more reliable to re-implement the higher-level approach within your
 own codebase. If you would like to use this code or have questions about
 the workflow modeled here, RMD is more than happy to chat via GitHub
 issues.
+
+For the intrepid:
+
+`obs_to_forest_z` calculates the Z score of an observed Hill number
+(q=1) to the expectations from a feasible set.
+
+`obs_to_norm_p` calculates a p value for the null hypothesis of an
+observed Hill number coming from the normal distribution of hill numbers
+for the corresponding feasible set.
+
+These functions are probably most accurate for S and N within the range
+sampled by the training values (i.e. ballpark S from 3-200, N from
+50-20000).
