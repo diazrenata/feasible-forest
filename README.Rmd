@@ -47,3 +47,4 @@ For the intrepid:
 
 These functions are probably most accurate for S and N within the range sampled by the training values (i.e. ballpark S from 3-200, N from 50-20000). 
 
+
