@@ -1,6 +1,12 @@
 feasibleforest
 ================
 
+
+
+[![DOI](https://zenodo.org/badge/635835289.svg)](https://zenodo.org/badge/latestdoi/635835289)
+
+
+
 This work is supported via NSF fellowship award DBI-2208901 to Renata
 Diaz.
 
